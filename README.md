@@ -2,7 +2,7 @@
 
 **Chess by Sparsh** is a local-first chess board for two-player play, accurate rule validation, move history, and portable game records.
 
-[Live demo](https://openboard-chess.vercel.app/) · [Repository](https://github.com/sparshsam/openboard-chess)
+[Live demo](https://chess-by-sparsh.vercel.app/) · [Repository](https://github.com/sparshsam/chess-by-sparsh)
 
 ---
 
@@ -12,7 +12,7 @@
 |---|---|
 | Version | `v0.1.0` |
 | Status | Live MVP |
-| Repository slug | `openboard-chess` |
+| Repository slug | `chess-by-sparsh` |
 | Deployment | Vercel |
 | Runtime model | Client-side web app |
 | Primary mode | Local two-player chess |
@@ -198,7 +198,7 @@ No roadmap item should be treated as promised until it is implemented, tested, a
 Agents working on this repository should follow these rules:
 
 - Keep the visible product name as **Chess by Sparsh**.
-- Use `openboard-chess` only as the technical repository slug or internal key where necessary.
+- Use `chess-by-sparsh` as the technical repository slug and package name.
 - Do not add online multiplayer, accounts, engine analysis, payments, or backend services without an explicit decision record.
 - Keep chess rules delegated to a mature rules library rather than reimplementing rules casually.
 - Preserve local-first behavior unless a future release deliberately changes scope.
@@ -211,7 +211,7 @@ Agents working on this repository should follow these rules:
 
 The public demo is deployed on Vercel:
 
-https://openboard-chess.vercel.app/
+https://chess-by-sparsh.vercel.app/
 
 For manual deployment through the Vercel CLI:
 

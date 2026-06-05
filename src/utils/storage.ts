@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'openboard-chess-save';
+const STORAGE_KEY = 'chess-by-sparsh-save';
 
 export function saveGame(fen: string, history: string[]): void {
   try {

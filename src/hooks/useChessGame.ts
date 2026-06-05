@@ -51,9 +51,11 @@ export function useChessGame() {
     if (saved) {
       try {
         game.load(saved.fen);
+        /* eslint-disable react-hooks/set-state-in-effect */
         setFen(saved.fen);
         setHistory(saved.history);
         updateState();
+        /* eslint-enable react-hooks/set-state-in-effect */
       } catch {
         // Saved state is invalid, start fresh
       }
