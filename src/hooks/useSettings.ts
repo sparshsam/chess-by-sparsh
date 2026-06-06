@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import type { AppSettings, GameMode, BoardOrientation } from '../types';
+import type { AppSettings, GameMode, BoardOrientation, BoardTheme, PieceSet } from '../types';
 import type { Difficulty } from '../chess/difficulty';
 import { loadSettings, saveSettings } from '../lib/storage';
 
@@ -24,6 +24,18 @@ export function useSettings() {
     setSettings((prev: AppSettings) => ({ ...prev, boardOrientation }));
   }, []);
 
+  const setBoardTheme = useCallback((boardTheme: BoardTheme) => {
+    setSettings((prev: AppSettings) => ({ ...prev, boardTheme }));
+  }, []);
+
+  const setPieceSet = useCallback((pieceSet: PieceSet) => {
+    setSettings((prev: AppSettings) => ({ ...prev, pieceSet }));
+  }, []);
+
+  const setSoundEnabled = useCallback((soundEnabled: boolean) => {
+    setSettings((prev: AppSettings) => ({ ...prev, soundEnabled }));
+  }, []);
+
   const toggleSettings = useCallback(() => {
     setSettingsOpen((prev) => !prev);
   }, []);
@@ -38,6 +50,9 @@ export function useSettings() {
     setGameMode,
     setDifficulty,
     setBoardOrientation,
+    setBoardTheme,
+    setPieceSet,
+    setSoundEnabled,
     toggleSettings,
     closeSettings,
   };

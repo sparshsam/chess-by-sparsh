@@ -49,6 +49,9 @@ const DEFAULT_SETTINGS: AppSettings = {
   gameMode: 'computer',
   difficulty: 'casual',
   boardOrientation: 'white-bottom',
+  boardTheme: 'classic',
+  pieceSet: 'unicode',
+  soundEnabled: true,
 };
 
 export function loadSettings(): AppSettings {
@@ -60,6 +63,9 @@ export function loadSettings(): AppSettings {
       gameMode: parsed.gameMode ?? DEFAULT_SETTINGS.gameMode,
       difficulty: parsed.difficulty ?? DEFAULT_SETTINGS.difficulty,
       boardOrientation: parsed.boardOrientation ?? DEFAULT_SETTINGS.boardOrientation,
+      boardTheme: parsed.boardTheme ?? DEFAULT_SETTINGS.boardTheme,
+      pieceSet: parsed.pieceSet ?? DEFAULT_SETTINGS.pieceSet,
+      soundEnabled: parsed.soundEnabled ?? DEFAULT_SETTINGS.soundEnabled,
     };
   } catch {
     return { ...DEFAULT_SETTINGS };
