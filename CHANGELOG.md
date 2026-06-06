@@ -6,6 +6,26 @@ This project follows practical versioned release notes rather than claiming stri
 
 ---
 
+## v0.5.1 — Local Runtime & Deployment Independence
+
+**Status:** Released
+
+### Added
+- `.nvmrc` and `.node-version` for Node.js version management
+- `.gitattributes` for consistent line endings
+- `npm start` alias for `vite`
+- `npm run test:watch` for watch-mode testing
+- `npm run typecheck` for TypeScript type checking
+- Comprehensive local development section in README with troubleshooting
+- VSCode recommended extensions and settings
+
+### Changed
+- README Quick Start → expanded Local Development section
+- CONTRIBUTING.md updated with setup and PR checklist
+- AGENTS.md updated with local dev guidance
+
+---
+
 ## v0.5.0 — Stockfish Nightmare Release
 
 **Status:** Released

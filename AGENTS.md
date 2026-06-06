@@ -9,7 +9,7 @@ This file gives AI coding agents a compact operating brief for **Chess by Sparsh
 - **Visible name:** Chess by Sparsh
 - **Repository slug:** `chess-by-sparsh`
 - **Package name:** `chess-by-sparsh` (in `package.json`)
-- **Current release:** `v0.3.0`
+- **Current release:** `v0.5.1`
 - **Product type:** Local-first chess board with computer opponent
 - **License:** MIT
 - **Deployment:** Vercel (static SPA)
@@ -127,9 +127,10 @@ When a change touches files in `src/`, add a scope annotation for clarity: `feat
 Before merging any functional change, run:
 
 ```bash
+npm run typecheck
 npm test
-npm run build
 npm run lint
+npm run build
 ```
 
 Documentation-only changes (`.md` files only, no code/config/tests) may skip runtime checks.
@@ -155,6 +156,38 @@ The `useSettings` hook persists changes automatically via `useEffect`. Loading h
 Changing game mode or difficulty triggers a board reset (via `useEffect` in `useChessGame`).
 
 ---
+
+## Script Reference
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start Vite dev server with COOP/COEP headers |
+| `npm start` | Alias for `npm run dev` |
+| `npm run build` | TypeScript build + Vite production build |
+| `npm run preview` | Preview production build locally |
+| `npm test` | Run tests once (Vitest) |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run lint` | ESLint check all source files |
+| `npm run typecheck` | TypeScript type checking without emit |
+
+## Local Dev Troubleshooting
+
+### SharedArrayBuffer / COOP-COEP
+- The Vite dev server sets `Cross-Origin-Embedder-Policy: require-corp` and `Cross-Origin-Opener-Policy: same-origin`
+- Verify headers in DevTools → Network → Response Headers
+- If blocked, check for browser extensions or proxies interfering
+
+### Stockfish fails to load
+- Open Network tab — look for 404s on `/stockfish/` files
+- Open Console tab — check for WASM or threading errors
+- Try a hard refresh (Cmd/Ctrl + Shift + R)
+
+### Node version mismatch
+- This project uses `.nvmrc` (nvm/fnm) and `.node-version` (nodenv/avn) — use `nvm use`, `fnm use`, etc.
+- Node.js 20+ required
+
+### Port conflict
+- Vite defaults to 5173; next available port is shown in terminal output
 
 ## Development Preference
 

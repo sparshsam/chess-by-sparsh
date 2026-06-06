@@ -34,17 +34,56 @@ The following must **not** be added without an explicit project decision recorde
 
 ---
 
-## Development Checklist
+## Development Setup
 
-Before opening a pull request or merging a change, run:
+### Local Environment
+
+1. **Node.js version**: This project expects Node.js 20+. Use `.nvmrc` (for `nvm`/`fnm`/etc.) or `.node-version` (for nodenv/avn) to auto-select the correct version.
+
+2. **Install dependencies**:
+   ```bash
+   cd chess-by-sparsh
+   npm install
+   ```
+
+3. **Start the dev server**:
+   ```bash
+   npm run dev
+   # or: npm start
+   ```
+
+4. **VSCode (optional but recommended)**: Install the recommended extensions listed in `.vscode/extensions.json` (ESLint, Prettier). Format-on-save is configured in `.vscode/settings.json`.
+
+### Stockfish / Nightmare Notes
+
+Nightmare difficulty uses `stockfish.wasm` — a WebAssembly port of Stockfish that requires `SharedArrayBuffer` and the `Atomics` API. In local development, Vite serves the app with the necessary `Cross-Origin-Embedder-Policy` and `Cross-Origin-Opener-Policy` headers.
+
+- Stockfish is **lazy-loaded** only when Nightmare is selected — it is NOT loaded on startup.
+- If Stockfish fails to load, open DevTools and check the Console and Network tabs.
+- Supported browsers for Nightmare: Chrome 79+, Edge 79+, Firefox 79+ (desktop only).
+- Safari and mobile browsers do not support the required APIs.
+
+---
+
+## Before Submitting a PR
+
+Run the full pre-submit checklist:
 
 ```bash
+npm run typecheck
 npm test
-npm run build
 npm run lint
+npm run build
 ```
 
-All three must pass. Documentation-only changes (`.md` files only, no code or config) may skip runtime checks.
+All four must pass. Documentation-only changes (`.md` files only, no code or config) may skip runtime checks.
+
+Also verify the app works locally:
+
+- Start the dev server (`npm run dev`) and play a few moves
+- Test each difficulty level (including Nightmare on a supported browser)
+- Test both game modes (User vs Computer and Local Two Player)
+- Run the production preview (`npm run build && npm run preview`) to catch build-only issues
 
 ---
 
