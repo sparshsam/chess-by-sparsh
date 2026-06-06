@@ -25,9 +25,18 @@ export type GameMode = 'computer' | 'local';
 /** Board orientation setting */
 export type BoardOrientation = 'white-bottom' | 'flip-turn';
 
+/** Board theme */
+export type BoardTheme = 'classic' | 'marine' | 'ember' | 'forest' | 'midnight';
+
+/** Piece set */
+export type PieceSet = 'unicode' | 'symbols' | 'outlined';
+
 /** All user preferences */
 export interface AppSettings {
   gameMode: GameMode;
   difficulty: Difficulty;
   boardOrientation: BoardOrientation;
+  boardTheme: BoardTheme;
+  pieceSet: PieceSet;
+  soundEnabled: boolean;
 }
