@@ -65,9 +65,9 @@ export async function runBenchmark(
     const { getComputerMove } = await import('./computer');
 
     const start = performance.now();
-    let bestMove = '';
     let status: BenchmarkResult['status'] = 'ok';
 
+    let bestMove: string;
     try {
       const result = await Promise.race([
         (async () => {
@@ -106,15 +106,11 @@ export async function runBenchmark(
  * Print benchmark results as a formatted table.
  */
 export function printBenchmarkResults(results: BenchmarkResult[]): void {
-  // eslint-disable-next-line no-console
   console.log('\n' + '='.repeat(80));
-  // eslint-disable-next-line no-console
   console.log('  CHESS ENGINE BENCHMARK');
-  // eslint-disable-next-line no-console
   console.log('='.repeat(80));
 
   if (results.length === 0) {
-    // eslint-disable-next-line no-console
     console.log('\n  No results to display.\n');
     return;
   }
@@ -127,21 +123,16 @@ export function printBenchmarkResults(results: BenchmarkResult[]): void {
   }
 
   for (const [difficulty, group] of grouped) {
-    // eslint-disable-next-line no-console
     console.log(`\n  ┌─ ${difficulty.toUpperCase()} ─────────────────────────────────────────────┐`);
     for (const r of group) {
       const statusIcon = r.status === 'ok' ? '✓' : r.status === 'timeout' ? '⚠' : '✗';
       const paddedLabel = r.label.padEnd(40).slice(0, 40);
-      // eslint-disable-next-line no-console
       console.log(`  │ ${statusIcon} ${paddedLabel} ${r.bestMove.slice(0, 8).padEnd(8)} ${r.timeMs}ms`);
     }
     const items = group.filter(r => r.status === 'ok');
     const avg = items.length > 0 ? items.reduce((s, r) => s + r.timeMs, 0) / items.length : 0;
-    // eslint-disable-next-line no-console
     console.log(`  │`);
-    // eslint-disable-next-line no-console
     console.log(`  │ Average (ok): ${Math.round(avg)}ms`);
-    // eslint-disable-next-line no-console
     console.log(`  └${'─'.repeat(56)}┘`);
   }
 
@@ -151,18 +142,11 @@ export function printBenchmarkResults(results: BenchmarkResult[]): void {
   const totalError = results.filter(r => r.status === 'error').length;
   const totalTime = results.reduce((s, r) => s + (r.status === 'ok' ? r.timeMs : 0), 0);
 
-  // eslint-disable-next-line no-console
   console.log('\n  ── Summary ─────────────────────────────────────────────────');
-  // eslint-disable-next-line no-console
   console.log(`  Total positions:  ${results.length}`);
-  // eslint-disable-next-line no-console
   console.log(`  Completed:        ${totalOk}`);
-  // eslint-disable-next-line no-console
   console.log(`  Timeouts:         ${totalTimeout}`);
-  // eslint-disable-next-line no-console
   console.log(`  Errors:           ${totalError}`);
-  // eslint-disable-next-line no-console
   console.log(`  Total time (ok):  ${totalTime}ms`);
-  // eslint-disable-next-line no-console
   console.log('='.repeat(80));
 }

@@ -200,7 +200,7 @@ function countAttackedSquares(game: Chess, color: 'w' | 'b'): number {
 
       switch (piece.type) {
         case 'n':
-          count += countKnightAttacks(r, f, board, color);
+          count += countKnightAttacks(r, f);
           break;
         case 'b':
           count += countSlidingAttacks(r, f, board, color, [[1,1],[1,-1],[-1,1],[-1,-1]]);
@@ -246,9 +246,7 @@ function countAttackedSquares(game: Chess, color: 'w' | 'b'): number {
 }
 
 function countKnightAttacks(
-  r: number, f: number,
-  _board: ReturnType<Chess['board']>,
-  _color: 'w' | 'b'
+  r: number, f: number
 ): number {
   const moves = [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]];
   let count = 0;
@@ -623,7 +621,7 @@ function oppositeBishopAdjustment(
   board: ReturnType<Chess['board']>
 ): number {
   // Find bishops and their square colors
-  let bishopColors: { w: string[]; b: string[] } = { w: [], b: [] };
+  const bishopColors: { w: string[]; b: string[] } = { w: [], b: [] };
   let bishopCount = 0;
 
   for (let r = 0; r < 8; r++) {
