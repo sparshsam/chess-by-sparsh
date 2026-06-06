@@ -20,7 +20,7 @@
   <p>
     <a href="https://chess-by-sparsh.vercel.app" target="_blank"><strong>Live Demo →</strong></a>
     &nbsp;&nbsp;·&nbsp;&nbsp;
-    <a href="#quick-start"><strong>Quick Start</strong></a>
+    <a href="#local-development"><strong>Local Development</strong></a>
     &nbsp;&nbsp;·&nbsp;&nbsp;
     <a href="#features"><strong>Features</strong></a>
     &nbsp;&nbsp;·&nbsp;&nbsp;
@@ -66,27 +66,85 @@ The product is designed around one idea: chess should be easy to start, locally 
 
 ---
 
-## Quick Start
+## Local Development
 
-### Requirements
-- Node.js 20+ and npm
+### System Requirements
+- **Node.js 20+** (recommended: 20 LTS or 22)
+- **npm** (comes with Node.js)
+- **Modern browser** with SharedArrayBuffer support for Stockfish:
+  - Chrome 79+ (desktop)
+  - Edge 79+ (desktop)
+  - Firefox 79+ (desktop)
+  - NOT supported: Safari, mobile browsers (Stockfish unavailable)
 
-### Install & run
+### Clone and Install
 ```bash
+git clone https://github.com/sparshsam/chess-by-sparsh.git
+cd chess-by-sparsh
 npm install
-npm run dev
 ```
 
-### Build & preview
+### Development Server
+```bash
+npm run dev
+# or
+npm start
+```
+Opens at `http://localhost:5173`.
+The Vite dev server is configured with COOP/COEP headers for Stockfish WASM support.
+
+### Production Build
 ```bash
 npm run build
 npm run preview
 ```
 
-### Test & lint
+### Type Checking
 ```bash
-npm test
+npm run typecheck
+```
+
+### Testing
+```bash
+npm test           # run tests once
+npm run test:watch # run tests in watch mode
+```
+
+### Linting
+```bash
 npm run lint
+```
+
+### Stockfish WASM
+Stockfish is lazily loaded when you select "Nightmare" difficulty. Engine files are served from `public/stockfish/`. The dev server sets the required SharedArrayBuffer headers automatically. If Stockfish doesn't load, see [Troubleshooting](#troubleshooting).
+
+### Troubleshooting
+
+```
+### SharedArrayBuffer / COOP-COEP Errors
+If Stockfish fails to load, you may see console errors about SharedArrayBuffer:
+- Ensure you're using Chrome 79+, Edge 79+, or Firefox 79+ (desktop)
+- Safari and mobile browsers do not support the required APIs
+- The Vite dev server is configured with the correct headers — check they're not being blocked
+
+### Stockfish fails to load
+- Open DevTools Network tab — verify stockfish.js, stockfish.wasm, and stockfish.worker.js load from /stockfish/
+- Check the Console tab for specific error messages
+
+### Port conflict
+Vite defaults to port 5173. If it's in use, Vite will suggest the next available port.
+
+### Clean install
+If you encounter dependency issues:
+```bash
+rm -rf node_modules
+npm install
+```
+
+### WSL / Windows
+On WSL2 with Windows, make sure:
+- Git clone inside the WSL filesystem (not /mnt/c/) for best file system performance
+- Use the WSL terminal, not PowerShell
 ```
 
 ---
