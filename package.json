@@ -36,5 +36,17 @@
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
     "vitest": "^4.1.8"
-  }
+  },
+  "description": "A local-first chess board with accurate rule validation, computer opponent, and clean play experience.",
+  "license": "MIT",
+  "author": "Sparsh Sam",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sparshsam/chess-by-sparsh.git"
+  },
+  "homepage": "https://github.com/sparshsam/chess-by-sparsh#readme",
+  "bugs": {
+    "url": "https://github.com/sparshsam/chess-by-sparsh/issues"
+  },
+  "keywords": []
 }
