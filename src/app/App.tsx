@@ -45,6 +45,9 @@ export default function App() {
     enterReviewMode,
     exitReviewMode,
     goToMove,
+    stockfishStatus,
+    stockfishError,
+    stockfishProgress,
   } = useChessGame({ settings });
 
   const [engineDebug, setEngineDebug] = useState<Partial<EngineDebugInfo> | null>(null);
@@ -62,6 +65,8 @@ export default function App() {
 
   const canUndo = history.length > 0;
   const canResign = !gameResult && !game.isGameOver() && history.length > 0;
+  const isNightmare =
+    settings.gameMode === 'computer' && settings.difficulty === 'nightmare';
 
   const pieceSetClass = 'piece-set-active-' + settings.pieceSet;
   const boardThinkingClass = isComputerThinking ? ' board-computer-thinking' : '';
