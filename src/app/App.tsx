@@ -1,7 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import Board from '../components/Board/Board';
 import MoveHistory from '../components/Game/MoveHistory';
-import StatusBar from '../components/Game/StatusBar';
 import GameControls from '../components/GameControls/GameControls';
 import PromotionDialog from '../components/PromotionDialog/PromotionDialog';
 import SettingsPanel from '../components/Settings/SettingsPanel';
@@ -27,7 +26,6 @@ export default function App() {
 
   const {
     game,
-    fen,
     history,
     status,
     selectedSquare,
@@ -37,9 +35,6 @@ export default function App() {
     gameResult,
     reviewMode,
     reviewIndex,
-    stockfishStatus,
-    stockfishError,
-    stockfishProgress,
     selectSquare,
     promote,
     cancelPromotion,
@@ -70,8 +65,6 @@ export default function App() {
 
   const canUndo = history.length > 0;
   const canResign = !gameResult && !game.isGameOver() && history.length > 0;
-  const isNightmare =
-    settings.gameMode === 'computer' && settings.difficulty === 'nightmare';
 
   const pieceSetClass = 'piece-set-active-' + settings.pieceSet;
   const boardThinkingClass = isComputerThinking ? ' board-computer-thinking' : '';
@@ -93,8 +86,8 @@ export default function App() {
       </header>
 
       <main id="main-content" className="app-main">
-        <div className="game-layout">
-          <div className={'board-section' + boardThinkingClass}>
+        <div className="game-layout" aria-label="Chess game layout">
+          <aside className="game-column game-column-left" aria-label="Player information">
             <PlayerPanel
               whiteCaptured={captured.white}
               blackCaptured={captured.black}
@@ -102,6 +95,9 @@ export default function App() {
               turn={game.turn() as 'w' | 'b'}
               status={status}
             />
+          </aside>
+
+          <section className={'board-section' + boardThinkingClass} aria-label="Chess board">
             <Board
               game={game}
               selectedSquare={selectedSquare}
@@ -111,19 +107,21 @@ export default function App() {
               pieceSet={settings.pieceSet}
               isComputerThinking={isComputerThinking}
             />
-            <StatusBar
-              status={status}
-              fen={fen}
-              gameMode={settings.gameMode}
-              isComputerThinking={isComputerThinking}
-              stockfishStatus={stockfishStatus}
-              stockfishError={stockfishError}
-              stockfishProgress={stockfishProgress}
-              isNightmare={isNightmare}
-            />
-          </div>
+          </section>
 
-          <div className="sidebar">
+          <aside className="game-column game-column-right" aria-label="Moves and actions">
+            <MoveHistory
+              history={history}
+              reviewMode={reviewMode}
+              reviewIndex={reviewIndex}
+              onGoToMove={goToMove}
+              onEnterReview={enterReviewMode}
+              onExitReview={exitReviewMode}
+            />
+            <section className="analysis-placeholder" aria-label="Future analysis placeholder">
+              <h2 className="panel-title">Analysis</h2>
+              <p>Evaluation and hints will appear here in a future version.</p>
+            </section>
             <GameControls
               onNewGame={newGame}
               onExportFen={exportFen}
@@ -134,15 +132,7 @@ export default function App() {
               canUndo={canUndo}
               canResign={canResign}
             />
-            <MoveHistory
-              history={history}
-              reviewMode={reviewMode}
-              reviewIndex={reviewIndex}
-              onGoToMove={goToMove}
-              onEnterReview={enterReviewMode}
-              onExitReview={exitReviewMode}
-            />
-          </div>
+          </aside>
         </div>
       </main>
 
@@ -175,10 +165,9 @@ export default function App() {
         } as React.CSSProperties}>
           {engineDebug.difficulty} | depth {engineDebug.depthReached}/{engineDebug.maxDepth} |
           {' '}{engineDebug.nodesSearched} nodes | score {engineDebug.bestScore}cp |
-          {' '}{engineDebug.openingBookHit ? '📖' : ''} {engineDebug.quiescenceUsed ? '🔍' : ''} {engineDebug.transpositionTableUsed ? '🗄️' : ''}
+          {' '}{engineDebug.openingBookHit ? '??' : ''} {engineDebug.quiescenceUsed ? '??' : ''} {engineDebug.transpositionTableUsed ? '???' : ''}
         </div>
       )}
     </div>
   );
 }
-
