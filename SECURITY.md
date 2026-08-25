@@ -82,3 +82,17 @@ This project does **not** claim to be:
 - Suitable for regulated competitive play
 - End-to-end encrypted
 - Suitable for storing sensitive information
+## Reporting a Vulnerability
+
+Chess by Sparsh runs entirely in the browser and sends no data anywhere. If you
+discover a security issue, please report it privately — do not open a public
+issue.
+
+Use GitHub's private vulnerability reporting:
+
+1. Open the **Security** tab of this repository.
+2. Click **Report a vulnerability**.
+3. Complete the form with as much detail as you can provide.
+
+Include: a clear description of the issue, reproduction steps, browser and
+operating system, and the expected impact.
